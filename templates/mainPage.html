@@ -24,7 +24,7 @@
             <img src="{{x.imageAddress}}" style="width: 200px;height: 200px;">
             <h1><a href="{{x.link}}">{{x.name}}</a></h1>
             <h3>Date: {{x.eventDate}}</h3>
-            <h4>Address: {{x.address}}</h4>
+            <h4>Address: {{x.address["street"]}}, {{x.address["city"]}}, {{x.address["state"]}} {{x.address["zip"]}}</h4>
             <h4>{{x.description}}</h4>
             <br>
             {% endfor %}

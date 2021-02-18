@@ -27,6 +27,14 @@
             <li class="nav-item active">
               <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
             </li>
+            {% if signedIn %}
+            <li class="nav-item active">
+              <a class="nav-link" href="/mainPage">Feed <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/rally">RALLY <span class="sr-only">(current)</span></a>
+            </li>
+            {% endif %}
 
             <!-- <li class="nav-item">
               <a class="nav-link" href="#">Link</a>
@@ -52,8 +60,8 @@
         </div>
       </nav>
     {% block body %}{% endblock %}
-    <div class="">
-      <nav class="navbar navbar-expand-lg navbar-light fixed-bottom bg-light" >
+    <div style="clear:both;">
+      <nav class="navbar navbar-expand-lg navbar-light bottom bg-light" >
         <a class="navbar-brand" href="https://www.urbandictionary.com/define.php?term=Ur%20Mom.">Who Made This?</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

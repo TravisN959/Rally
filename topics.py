@@ -4,13 +4,35 @@ client = pymongo.MongoClient("mongodb+srv://Travis:Rally@accounts.gqj8e.mongodb.
 database = client["Rally"]
 collection = database["Topics"]
 
-def setupTopic(idNum, name, description):
+def setupTopic(idNum, name, description, rallys):
     topics ={
         "idNum": idNum,
         "name" : name,
-        "description": description
+        "description": description,
+        "rallys": rallys
     }
     collection.insert_one(topics)
+
+def addRally(idNum, rallyID):
+    
+    # topic = collection.find_one({'idNum': idNum})
+    # print(topic)
+    # rally = topic["rallys"]
+    # # if rally is None:#initialize if empty
+    # #     rallys = []
+    # print(rally)
+    # rally.append(rallyID)
+    # print(rally)
+    collection.update_one(
+        {"idNum": idNum},
+        {'$set': { 'rallys' : rally}}
+    )
+
+    rallys = collection.find_one({"idNum": idNum})
+    print(rallys)
+
+def getTopicsCount():
+    return collection.count({})
 
 def getTopics():
     return collection.find({})

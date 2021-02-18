@@ -37,33 +37,21 @@ def signup():
         
         phone = request.form['phone']
         email = request.form['email']
-
+        
+        address= {}
+        address["street"] = request.form["street"]
+        address["state"] = request.form["state"]
+        address["city"] = request.form["city"]
+        address["zip"] = request.form["zip"]
         #get info for default topics
-        topics = []
-        topic = request.form.get('topic1')
-        if topic is not None:
-            topics.append(1)
-        topic = request.form.get('topic2')
-        if topic is not None:
-            topics.append(2)
-        topic = request.form.get('topic3')
-        if topic is not None:
-            topics.append(3)
-        topic = request.form.get('topic4')
-        if topic is not None:
-            topics.append(4)
-        topic = request.form.get('topic5')
-        if topic is not None:
-            topics.append(5)
-        topic = request.form.get('topic6')
-        if topic is not None:
-            topics.append(6)
-        topic = request.form.get('topic7')
-        if topic is not None:
-            topics.append(7)
-        topic = request.form.get('topic8')
-        if topic is not None:
-            topics.append(8)
+        topicso = []
+        
+        for top in topics.getTopics():
+            idnum = top["idNum"]
+            topicVal = 'topic' + str(idnum)
+            topic = request.form.get(topicVal)
+            if topic is not None:
+                topicso.append(idnum)
 
         if(password != repeatPass): #check for repeat password
             try:
@@ -75,7 +63,7 @@ def signup():
             except: return "Error in duplicate username"
         else:#add account to db
             accounts.addAccount(username, password)
-            accountInfo.setupAccount(username, phone, email, topics, fname, lname)
+            accountInfo.setupAccount(username, phone, email, topicso, fname, lname, address)
             try:
                 
                 return signupSuccess()
@@ -83,7 +71,7 @@ def signup():
                 return 'There was an error searching your task'
 
     else:#page refreshed/ reloaded so will output the template.
-        return render_template('signup.html', ERROR=False, ERROR_MSG="No Error", signedIn= isloggedIn())
+        return render_template('signup.html', ERROR=False, ERROR_MSG="No Error", signedIn= isloggedIn(), topicsInput= topics.getTopics())
 
 @app.route('/signin', methods=['POST', 'GET'])
 @app.route('/signin.html', methods=['POST', 'GET'])
@@ -129,15 +117,40 @@ def rally():
         if request.method == 'POST':
             name = request.form["name"]
             description = request.form["description"]
-            address = request.form["address"]
+            address = {}
+            address["street"] = request.form["street"]
+            address["city"] = request.form["city"]
+            address["state"] = request.form["state"]
+            address["zip"] = request.form["zip"]
             imageAddress = request.form["imageAddress"]
             link = request.form["link"]
             eventDate = request.form["eventDate"]
             topic = request.form["topics"]
-            rallydb.setupRally(name, description, address, imageAddress, link, eventDate, topic)
+            creator = session["user"]
+
+            idIn = rallydb.getRallyCount()
+            #add rally to list in topics
+            # topics.addRally(topic, idIn)
+            #add rally to rally db
+            rallydb.setupRally(idIn, name, description, address, imageAddress, link, eventDate, topic, creator)
             return redirect(url_for("rallySuccess"))
         else:
             return render_template('rally.html', signedIn= isloggedIn(), topics= topics.getTopics())
+    else:
+        return render_template('signin.html', signedIn= isloggedIn())
+
+@app.route('/topicCreate', methods=['POST', 'GET'])
+def topicCreate():
+    if "user" in session:#checks to see if logged in
+        if request.method == 'POST':
+            name = request.form["name"]
+            description = request.form["description"]
+            idNum = topics.getTopicsCount() + 1
+            rallys = []
+            topics.setupTopic(idNum, name, description, rallys)
+            return 'created'
+        else:
+            return render_template('topicCreate.html', signedIn= isloggedIn())
     else:
         return render_template('signin.html', signedIn= isloggedIn())
 
