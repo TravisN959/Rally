@@ -3,7 +3,7 @@ from datetime import datetime
 import requests
 import json
 import accounts
-
+import accountInfo
 app = Flask(__name__)
 app.secret_key = "rally"
 
@@ -29,6 +29,40 @@ def signup():
         username = username.lower()
         password = request.form['password']
         repeatPass = request.form['repeatPassword']
+
+        fname = request.form['fname']
+        lname = request.form['lname']
+        
+        phone = request.form['phone']
+        email = request.form['email']
+
+        #get info for default topics
+        topics = []
+        topic = request.form.get('topic1')
+        if topic is not None:
+            topics.append(1)
+        topic = request.form.get('topic2')
+        if topic is not None:
+            topics.append(2)
+        topic = request.form.get('topic3')
+        if topic is not None:
+            topics.append(3)
+        topic = request.form.get('topic4')
+        if topic is not None:
+            topics.append(4)
+        topic = request.form.get('topic5')
+        if topic is not None:
+            topics.append(5)
+        topic = request.form.get('topic6')
+        if topic is not None:
+            topics.append(6)
+        topic = request.form.get('topic7')
+        if topic is not None:
+            topics.append(7)
+        topic = request.form.get('topic8')
+        if topic is not None:
+            topics.append(8)
+
         if(password != repeatPass): #check for repeat password
             try:
                 return render_template('signup.html', ERROR=True, ERROR_MSG="Passwords must be the same", signedIn= isloggedIn())
@@ -39,6 +73,7 @@ def signup():
             except: return "Error in duplicate username"
         else:#add account to db
             accounts.addAccount(username, password)
+            accountInfo.setupAccount(username, phone, email, topics, fname, lname)
             try:
                 
                 return signupSuccess()
@@ -74,17 +109,9 @@ def mainPage():
     if "user" in session:#checks to see if logged in
         if request.method == 'POST':
             return session["user"]
-            # username = request.form['username']
-            # username = username.lower()
-            # password = request.form['password']
-            # if(not accounts.validateLogin(username, password)): #check for correctinfo
-            #     try:
-            #         return render_template('signin.html', ERROR=True, ERROR_MSG="Password/Username Combo Error: Try Again")
-            #     except: return "Error in sigin"
-            # session["user"] = username
-            # return render_template('mainPage.html')
+            
         else:#page refreshed/ reloaded so will output the template.
-            return session["user"]#render_template('mainPage.html')
+            return render_template('mainPage.html',signedIn= isloggedIn())
     else:
         return render_template('signin.html', signedIn= isloggedIn())
 
@@ -93,6 +120,16 @@ def logout():
     session.pop("user", None)
     return redirect(url_for("signin"))
 
+@app.route('/settings', methods=['POST', 'GET'])
+def settings():
+    if "user" in session:#checks to see if logged in
+        if request.method == 'POST':
+           
+            return render_template('settings.html', signedIn= isloggedIn())
+        else:
+            return render_template('settings.html', signedIn= isloggedIn())
+    else:
+        return render_template('signin.html', signedIn= isloggedIn())
 
 def isloggedIn():
     if "user" in session:
