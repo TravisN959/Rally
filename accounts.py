@@ -22,3 +22,14 @@ def addAccount(username, password):
     }
     collection.insert_one(info)
     return True
+
+def validateLogin(username, password):
+    query = {
+        "username": username,
+        "password": password
+    }
+    found = collection.count_documents(query, limit = 1)
+    if found != 0:
+        return True
+    else:
+        return False

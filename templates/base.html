@@ -43,14 +43,17 @@
               </div>
             </li> -->
           </ul>
-
-          <a href="signup" style="color: white;">Sign Up</a>
+          {% if signedIn %}
+          <a href="logout" style="color: white;">Log Out</a>
+          {% else %}
+          <a href="signup" style="color: white;">Sign Up/</a>
+          <a href="signin" style="color: white;">Sign In</a>
+          {% endif %}
         </div>
       </nav>
     {% block body %}{% endblock %}
-    <div >
-      <h2 class="bg-light" style="text-align:center;">Pretty Cool Site Right!?</h2>
-      <nav class="navbar navbar-expand-lg navbar-light bottom bg-light" >
+    <div class="">
+      <nav class="navbar navbar-expand-lg navbar-light fixed-bottom bg-light" >
         <a class="navbar-brand" href="https://www.urbandictionary.com/define.php?term=Ur%20Mom.">Who Made This?</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<Title>Rally Sign In</Title>
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+    
+    <div class="">
+        <br>
+        <h1 class="title">Sign In</h1>
+        <form style="text-align: center;" action="/signin" method="POST">
+            <label for="username">Username:</label><br>
+            <input type="text" placeholder="Enter username" name="username" required><br>
+            <label for="password">Password:</label><br>
+            <input type="password" placeholder="Enter Password" name="password" required><br><br>
+            <button type="submit" class="signupbtn">Sign In</button>
+        </form> 
+        {% if ERROR %}
+        <h5 style="color: red;text-align: center;">{{ERROR_MSG}}</h5>    
+        {% endif %}
+        
+    </div>
+    <br>
+    <br>
+    
+</div>
+{% endblock %} 
+
+
