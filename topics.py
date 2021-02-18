@@ -12,6 +12,8 @@ def setupTopic(idNum, name, description):
     }
     collection.insert_one(topics)
 
+def getTopics():
+    return collection.find({})
 # setupTopic(1, "Climate Change", "Earth’s climate is now changing faster than at any point in the history of modern civilization, primarily as a result of human activities. Global climate change has already resulted in a wide range of impacts across every region of the country and many sectors of the economy that are expected to grow in the coming decades. ")
 # setupTopic(2, "Racial Injustice", "Racial inequality identifies the social inequality and advantages and disparities that affect different races within the United States. These can also be seen as a result of historic oppression, inequality of inheritance, or overall racism and prejudice, especially against minority groups.")
 # setupTopic(3, "LGBTQ+", "In too many countries, being lesbian, gay, bisexual, transgender or intersex (LGBTI) means living with daily discrimination. This discrimination could be based on your sexual orientation (who you’re attracted to); gender identity (how you define yourself, irrespective of your biological sex), gender expression (how you express your gender through your clothing, hair or make-up), or sex characteristics (for example, your genitals, chromosomes, reproductive organs, or hormone levels.)")

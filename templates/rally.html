@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<Title>Rally Main Page</Title>
+{% endblock %}
+
+{% block body %}
+
+<div class="content">
+    
+    <div class="">
+        <br>
+        <h1 class="title">Create Your Rally!</h1>
+        <form style="text-align: center;" action="/rally" method="POST">
+            <label for="name">Event Name:</label><br>
+            <input type="text" placeholder="Event Name" name="name" required><br>
+            
+            <label for="description">Description:</label><br>
+            <input type="text" placeholder="Description" name="description" required><br>
+            
+            <label for="address">Address:</label><br>
+            <input type="text" placeholder="Address" name="address" required><br>
+            
+            <label for="imageAddress">Image URL:</label><br>
+            <input type="text" placeholder="URL" name="imageAddress" required><br>
+            
+            <label for="link">Event Link:</label><br>
+            <input type="text" placeholder="link" name="link" required><br>
+            
+            <label for="eventDate">Event Date:</label><br>
+            <input type="date" placeholder="08/01/2021" name="eventDate" required><br>
+            
+            <label for="topics">Choose a Event Topic:</label><br>
+            <select name="topics">
+                {% for x in topics %}
+                <option value="{{x.idNum}}">{{x.name}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <br>
+            <button type="submit" class="signupbtn">Rally</button>
+        </form> 
+        
+    </div>
+    <br>
+    <br>
+    
+</div>
+{% endblock %} 
+
+

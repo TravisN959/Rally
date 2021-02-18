@@ -4,6 +4,8 @@ import requests
 import json
 import accounts
 import accountInfo
+import topics
+import rallydb
 app = Flask(__name__)
 app.secret_key = "rally"
 
@@ -107,11 +109,7 @@ def signupSuccess():
 @app.route('/mainPage.html', methods=['POST', 'GET'])
 def mainPage():
     if "user" in session:#checks to see if logged in
-        if request.method == 'POST':
-            return session["user"]
-            
-        else:#page refreshed/ reloaded so will output the template.
-            return render_template('mainPage.html',signedIn= isloggedIn())
+        return render_template('mainPage.html',signedIn= isloggedIn(), rallys= rallydb.getRallys())
     else:
         return render_template('signin.html', signedIn= isloggedIn())
 
@@ -119,6 +117,30 @@ def mainPage():
 def logout():
     session.pop("user", None)
     return redirect(url_for("signin"))
+
+@app.route('/rallySuccess')
+def rallySuccess():
+    return render_template('rallySuccess.html', signedIn= isloggedIn())
+
+@app.route('/rally', methods=['POST', 'GET'])
+def rally():
+    if "user" in session:#checks to see if logged in
+        
+        if request.method == 'POST':
+            name = request.form["name"]
+            description = request.form["description"]
+            address = request.form["address"]
+            imageAddress = request.form["imageAddress"]
+            link = request.form["link"]
+            eventDate = request.form["eventDate"]
+            topic = request.form["topics"]
+            rallydb.setupRally(name, description, address, imageAddress, link, eventDate, topic)
+            return redirect(url_for("rallySuccess"))
+        else:
+            return render_template('rally.html', signedIn= isloggedIn(), topics= topics.getTopics())
+    else:
+        return render_template('signin.html', signedIn= isloggedIn())
+
 
 @app.route('/settings', methods=['POST', 'GET'])
 def settings():
