@@ -12,9 +12,32 @@
     <div class="textMainPage ">
         <br>
         <h1 class="title">Rally Settings</h1>
+        <h1 class="title">Change your Topics/Interests</h1>
         
-        
-        
+        <center>
+            <form style="text-align: center;" action="/settings" method="POST">
+                {% set i = namespace(value=0) %}
+                    {% for x in topicsInput%}
+                        {% set check = False %}
+                        {% if x.idNum in currTopics %}
+                            <input type="checkbox" name="topic{{x.idNum}}" checked>
+                        {% else%}
+                        <input type="checkbox" name="topic{{x.idNum}}">
+                        {% endif%}
+                        
+                        <label for="topic{{x.idNum}}"> {{x.name}} </label>
+                        {% if (i.value % 3) == 2 %}
+                            <br>
+                        {% endif %}
+                        {% set i.value = i.value + 1 %}
+                    {% endfor%}
+                <br>
+                <button type="submit" class="signupbtn">Save Changes</button>
+            </form>
+            {% if saved %}
+            <h5 style="color: rgb(50, 196, 6);text-align: center;">Changes Saved</h5>
+            {% endif%} 
+        </center>
         <br>
         <br>
     </div>
