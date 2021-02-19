@@ -13,7 +13,7 @@ def send_message(text, number):
                     .create(
                         messaging_service_sid=twilioAPI.get_mes_sid(),
                         body= text,
-                        to='+1' + number
+                        to='+1' + str(number)
                     )
     print(message.sid)
 
@@ -26,4 +26,4 @@ def add_number(user, number):
                                 )
     print(validation_request.friendly_name)
 
-send_message('poopoo', '9498387613')
+send_message('poopoo', 9498387613)
