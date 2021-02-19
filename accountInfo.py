@@ -23,4 +23,9 @@ def getAddress(username):
     address = collection.find_one({"username": username})["address"]
     return address["street"] + ', ' + address["city"] + ", " + address["state"] + " " + address["zip"]
 
-# print(getAddress("tester"))
+def setTopics(username, newTopics):
+    collection.update_one({"username": username}, {"$set":{"topics": newTopics}})
+
+def getTopics(username):
+    info = getInfo(username)
+    return info["topics"]

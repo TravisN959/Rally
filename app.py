@@ -181,10 +181,21 @@ def topicCreate():
 def settings():
     if "user" in session:#checks to see if logged in
         if request.method == 'POST':
-           
-            return render_template('settings.html', signedIn= isloggedIn())
+            topicso = []
+        
+            #getting and storing new topics
+            for top in topics.getTopics():
+                idnum = top["idNum"]
+                topicVal = 'topic' + str(idnum)
+                topic = request.form.get(topicVal)
+                if topic is not None:
+                    topicso.append(idnum)
+            
+            accountInfo.setTopics(session["user"], topicso)
+            return render_template('settings.html', signedIn= isloggedIn(), topicsInput= topics.getTopics(), saved= True, currTopics= accountInfo.getTopics(session["user"]))
         else:
-            return render_template('settings.html', signedIn= isloggedIn())
+
+            return render_template('settings.html', signedIn= isloggedIn(), topicsInput= topics.getTopics(), currTopics= accountInfo.getTopics(session["user"]))
     else:
         return render_template('signin.html', signedIn= isloggedIn())
 
