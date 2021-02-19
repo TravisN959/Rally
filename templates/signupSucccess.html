@@ -13,7 +13,12 @@
         <br>
         <h1 class="title">Sign up Successful!</h1>
         <h3 style="text-align: center;">Click <a href="signin">HERE</a> to sign in!</h3>
-        
+        <h5 class="title" >Redirecting to sign in page in 3 seconds...</h5>
+        <script>
+            var timer = setTimeout(function() {
+                window.location='/signin'
+            }, 3000);
+        </script>
         
     </div>
     <br>

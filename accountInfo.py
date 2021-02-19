@@ -15,3 +15,12 @@ def setupAccount(username, phone, email, topics, fname, lname, address):
         "address": address
     }
     collection.insert_one(acct)
+
+def getInfo(username):
+    return collection.find_one({"username": username})
+
+def getAddress(username):
+    address = collection.find_one({"username": username})["address"]
+    return address["street"] + ', ' + address["city"] + ", " + address["state"] + " " + address["zip"]
+
+# print(getAddress("tester"))

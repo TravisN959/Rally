@@ -21,12 +21,30 @@
             </a>
             <br><br>
             {% for x in rallys %}
-            <img src="{{x.imageAddress}}" style="width: 200px;height: 200px;">
-            <h1><a href="{{x.link}}">{{x.name}}</a></h1>
-            <h3>Date: {{x.eventDate}}</h3>
-            <h4>Address: {{x.address["street"]}}, {{x.address["city"]}}, {{x.address["state"]}} {{x.address["zip"]}}</h4>
-            <h4>{{x.description}}</h4>
-            <br>
+                <img src="{{x.imageAddress}}" style="width: 200px;height: 200px;">
+                <h1><a href="{{x.link}}">{{x.name}}</a></h1>
+                <h3>Date: {{x.eventDate}}</h3>
+                <h4>Address: {{x.address["street"]}}, {{x.address["city"]}}, {{x.address["state"]}} {{x.address["zip"]}}</h4>
+                {% set val = rallyDist[x.idNum] %}
+                <h4>Driving Travel Time:  {{val}}</h4>
+                <button onclick="myFunction('{{x.idNum}}')">Directions</button>
+                {% set directval = rallyDirect[x.idNum] %}
+                <br>
+                <div style="display: none;" id={{x.idNum}}>
+                    {{directval|safe}}
+                </div>
+                <script>
+                    function myFunction(y) {
+                                var x = document.getElementById(y);
+                                if (x.style.display === "none") {
+                                    x.style.display = "block";
+                                } else {
+                                    x.style.display = "none";
+                                }
+                            }
+                </script>
+                <h4>{{x.description}}</h4>
+                <br>
             {% endfor %}
         </center>
     </div>

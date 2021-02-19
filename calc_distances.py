@@ -6,8 +6,10 @@ distance_url = 'https://maps.googleapis.com/maps/api/distancematrix/json?units=i
 directions_url = 'https://maps.googleapis.com/maps/api/directions/json?'
 
 def travel_time(loc_a, loc_b):
+    
     r = requests.get(distance_url + "origins=" + loc_a + "&destinations=" + loc_b + "&key=" + getAPI.get_key())
     time = r.json()["rows"][0]["elements"][0]["duration"]["text"]
+    
     return time
 
 
@@ -26,4 +28,4 @@ def get_distance(loc_a, loc_b):
     return distance
 
 
-print(get_directions('493 Stanford Court', '4199 Campus Dr'))
+# print(travel_time('493 Stanford Court', '4199 Campus Dr'))

@@ -6,6 +6,8 @@ import accounts
 import accountInfo
 import topics
 import rallydb
+import calc_distances
+import time
 app = Flask(__name__)
 app.secret_key = "rally"
 
@@ -97,7 +99,22 @@ def signupSuccess():
 @app.route('/mainPage.html', methods=['POST', 'GET'])
 def mainPage():
     if "user" in session:#checks to see if logged in
-        return render_template('mainPage.html',signedIn= isloggedIn(), rallys= rallydb.getRallys())
+        #process distance from user to rallys
+        address = accountInfo.getAddress(session["user"])
+        
+        rallyInfo = rallydb.getRallys()
+        rallyDistance = {}
+        rallyDirections = {}
+        for rally in rallyInfo:
+            rallyAddress = rally["address"]
+            rallyAddressStr = rallyAddress["street"] + ', ' + rallyAddress["city"] + ", " + rallyAddress["state"] + " " + rallyAddress["zip"]
+            distance = calc_distances.travel_time(address, rallyAddressStr)
+            directions = calc_distances.get_directions(address, rallyAddressStr)
+            rallyDistance[rally["idNum"]] = distance
+            rallyDirections[rally["idNum"]] = directions
+        
+        print(rallyDirections)
+        return render_template('mainPage.html',signedIn= isloggedIn(), rallys= rallydb.getRallys(), rallyDist= rallyDistance, rallyDirect = rallyDirections)
     else:
         return render_template('signin.html', signedIn= isloggedIn())
 
@@ -109,6 +126,11 @@ def logout():
 @app.route('/rallySuccess')
 def rallySuccess():
     return render_template('rallySuccess.html', signedIn= isloggedIn())
+
+@app.route('/topicCreateSuccess')
+def topicCreateSuccess():
+    return render_template('topicCreateSuccess.html', signedIn= isloggedIn())
+
 
 @app.route('/rally', methods=['POST', 'GET'])
 def rally():
@@ -148,7 +170,7 @@ def topicCreate():
             idNum = topics.getTopicsCount() + 1
             rallys = []
             topics.setupTopic(idNum, name, description, rallys)
-            return 'created'
+            return topicCreateSuccess()
         else:
             return render_template('topicCreate.html', signedIn= isloggedIn())
     else:
