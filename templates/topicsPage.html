@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% block head %}
+
+<Title>Topics Page</Title>
+{% endblock %}
+
+{% block body %}
+
+<div class="content" style="padding-left: 5rem; padding-right: 5rem;">
+    <center>
+            <br>
+            <br>
+            <h1 class="handWriteTitle">Topics on Rally</h1>
+            {% for x in topicList %}
+                
+                <h1 class="handWriteText">{{x.name}}</h1>
+                <h1 class="handWriteTextSmallish">{{x.description}}</h1>
+                <hr style="width:40%; background-color:white;">
+                <br>
+
+            {% endfor %}
+     </center>
+</div>
+{% endblock %} 
+
+

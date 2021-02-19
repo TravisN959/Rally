@@ -96,6 +96,12 @@ def signin():
 def signupSuccess():
     return render_template('signupSucccess.html', signedIn= isloggedIn())
 
+@app.route('/topicsPage')
+def topicsPage():
+
+    return render_template('topicsPage.html', signedIn= isloggedIn(), topicList= topics.getTopics())
+
+
 @app.route('/mainPage', methods=['POST', 'GET'])
 @app.route('/mainPage.html', methods=['POST', 'GET'])
 def mainPage():
@@ -158,13 +164,19 @@ def rally():
             #add rally to rally db
             rallydb.setupRally(idIn, name, description, address, imageAddress, link, eventDate, topic, creator)
             #send rally stuff to all participants
+            #checks if rally is close enough
+            addressOfRally = address["street"] + ', ' + address["city"] + ", " + address["state"] + " " + address["zip"]
+            
             accts = accountInfo.getAccounts()
             for act in accts:
                 for t in act["topics"]:
                     tStr = str(t)
                     if tStr == topic:
-                        msg = "Relevent Rally Added!\n" + "Event: " + name + "\nFor more info check RALLY!\n"
-                        texting.send_message(msg, act["phone"])
+                        distanceStr =  calc_distances.get_distance(accountInfo.getAddress(act["username"]), addressOfRally)
+                        distanceFloat = float(distanceStr[:-2])
+                        if(distanceInt < 30):#only texts if within 30 miles
+                            msg = "Relevent Rally Added!\n" + "Event: " + name + "\nFor more info check RALLY!\n"
+                            texting.send_message(msg, act["phone"])
                 
             return redirect(url_for("rallySuccess"))
         else:

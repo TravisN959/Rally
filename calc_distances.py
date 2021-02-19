@@ -27,5 +27,9 @@ def get_distance(loc_a, loc_b):
     distance = r.json()["rows"][0]["elements"][0]["distance"]["text"]
     return distance
 
-
-# print(travel_time('493 Stanford Court', '4199 Campus Dr'))
+# distStr = get_distance('los angeles', '4199 Campus Dr')
+# value = float(distStr[:-2])
+# print(distStr[:-1])
+# print(distStr[:-2])
+# print(value)
+# print(type(value))

@@ -20,7 +20,7 @@
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top" style="background-color: #FF9985;">
         <div class="logoBackground">
             
-            <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='images/R.png') }}" style="height: 30px;"></a>
+            <a class="navbar-brand" href="/"><img src="{{ url_for('static', filename='images/R.png') }}" style="height: 50px;"></a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -30,6 +30,9 @@
           <ul class="navbar-nav mr-auto">
             <li class="nav-item active">
               <a class="nav-link" href="/" style="font-size: 25px; font-family: 'Amatic SC';color: rgb(255, 255, 255);">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item active">
+              <a class="nav-link" href="/topicsPage" style="font-size: 25px; font-family: 'Amatic SC';color: rgb(255, 255, 255);">Topics <span class="sr-only">(current)</span></a>
             </li>
             {% if signedIn %}
             <li class="nav-item active">
