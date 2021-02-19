@@ -15,6 +15,7 @@ def send_message(text, number):
                         body= text,
                         to='+1' + str(number)
                     )
+    print(text)
     print(message.sid)
 
 
@@ -25,5 +26,3 @@ def add_number(user, number):
                                     phone_number='+1' + number
                                 )
     print(validation_request.friendly_name)
-
-send_message('poopoo', 9498387613)

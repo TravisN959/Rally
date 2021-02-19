@@ -8,6 +8,7 @@ import topics
 import rallydb
 import calc_distances
 import time
+import texting
 app = Flask(__name__)
 app.secret_key = "rally"
 
@@ -101,8 +102,9 @@ def mainPage():
     if "user" in session:#checks to see if logged in
         #process distance from user to rallys
         address = accountInfo.getAddress(session["user"])
-        print(accountInfo.getAccounts())
+        
         rallyInfo = rallydb.getRallys()
+        
         rallyDistance = {}
         rallyDirections = {}
         for rally in rallyInfo:
@@ -156,6 +158,14 @@ def rally():
             #add rally to rally db
             rallydb.setupRally(idIn, name, description, address, imageAddress, link, eventDate, topic, creator)
             #send rally stuff to all participants
+            accts = accountInfo.getAccounts()
+            for act in accts:
+                for t in act["topics"]:
+                    tStr = str(t)
+                    if tStr == topic:
+                        msg = "Relevent Rally Added!\n" + "Event: " + name + "\nFor more info check RALLY!\n"
+                        texting.send_message(msg, act["phone"])
+                
             return redirect(url_for("rallySuccess"))
         else:
             return render_template('rally.html', signedIn= isloggedIn(), topics= topics.getTopics())
