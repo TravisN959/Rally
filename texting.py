@@ -17,4 +17,13 @@ def send_message(text, number):
                     )
     print(message.sid)
 
-# send_message('travis', '9498387613')
+
+def add_number(user, number):
+    validation_request = client.validation_requests \
+                                .create(
+                                    friendly_name=user,
+                                    phone_number='+1' + number
+                                )
+    print(validation_request.friendly_name)
+
+send_message('poopoo', '9498387613')
