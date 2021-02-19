@@ -11,7 +11,9 @@
     
     <div class="">
         <br>
+        
         <center>
+            <br>
             <a href="rally">
                 <button type="button" class="btn btn-dark">
                     <h1 style="text-align: center;" >
@@ -21,7 +23,7 @@
             </a>
             <br><br>
             {% for x in rallys %}
-                <img src="{{x.imageAddress}}" style="width: 200px;height: 200px;">
+                <img src="{{x.imageAddress}}" style="object-fit: cover;width: 200px;height: 200px;">
                 <h1 class="handWriteTitle"><a href="{{x.link}}">{{x.name}}</a></h1>
                 <h3 class="handWriteText">Date: {{x.eventDate}}</h3>
                     <div class="container">
@@ -57,8 +59,9 @@
                             }
                 </script>
                 
-                
+                <hr style="width:40%; background-color:white;">
                 <br>
+
             {% endfor %}
         </center>
     </div>
