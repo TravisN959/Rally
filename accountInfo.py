@@ -29,3 +29,6 @@ def setTopics(username, newTopics):
 def getTopics(username):
     info = getInfo(username)
     return info["topics"]
+
+def getAccounts():
+    return collection.find({})

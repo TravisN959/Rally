@@ -101,7 +101,7 @@ def mainPage():
     if "user" in session:#checks to see if logged in
         #process distance from user to rallys
         address = accountInfo.getAddress(session["user"])
-        
+        print(accountInfo.getAccounts())
         rallyInfo = rallydb.getRallys()
         rallyDistance = {}
         rallyDirections = {}
@@ -113,7 +113,7 @@ def mainPage():
             rallyDistance[rally["idNum"]] = distance
             rallyDirections[rally["idNum"]] = directions
         
-        print(rallyDirections)
+        
         return render_template('mainPage.html',signedIn= isloggedIn(), rallys= rallydb.getRallys(), rallyDist= rallyDistance, rallyDirect = rallyDirections)
     else:
         return render_template('signin.html', signedIn= isloggedIn())
@@ -155,6 +155,7 @@ def rally():
             # topics.addRally(topic, idIn)
             #add rally to rally db
             rallydb.setupRally(idIn, name, description, address, imageAddress, link, eventDate, topic, creator)
+            #send rally stuff to all participants
             return redirect(url_for("rallySuccess"))
         else:
             return render_template('rally.html', signedIn= isloggedIn(), topics= topics.getTopics())
