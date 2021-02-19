@@ -11,8 +11,8 @@
     
     <div class="textMainPage ">
         <br>
-        <h1 class="title">Rally Settings</h1>
-        <h1 class="title">Change your Topics/Interests</h1>
+        <h1 class="title handWriteTitle">Rally Settings</h1>
+        <h1 class="title handWriteTitle">Change your Topics/Interests</h1>
         
         <center>
             <form style="text-align: center;" action="/settings" method="POST">
@@ -25,14 +25,11 @@
                         <input type="checkbox" name="topic{{x.idNum}}">
                         {% endif%}
                         
-                        <label for="topic{{x.idNum}}"> {{x.name}} </label>
-                        {% if (i.value % 3) == 2 %}
-                            <br>
-                        {% endif %}
-                        {% set i.value = i.value + 1 %}
+                        <label for="topic{{x.idNum}}" class="handWriteText"> {{x.name}} </label>
+                        <br>
                     {% endfor%}
                 <br>
-                <button type="submit" class="signupbtn">Save Changes</button>
+                <button type="submit" class="signupbtn btn btn-dark">Save Changes</button>
             </form>
             {% if saved %}
             <h5 style="color: rgb(50, 196, 6);text-align: center;">Changes Saved</h5>

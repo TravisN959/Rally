@@ -1,6 +1,7 @@
 import pymongo
 
-client = pymongo.MongoClient("mongodb+srv://Travis:Rally@accounts.gqj8e.mongodb.net/Rally?retryWrites=true&w=majority")
+import mongoKEYS
+client = pymongo.MongoClient(mongoKEYS.getKEY())
 database = client["Rally"]
 collection = database["AccountInfo"]
 

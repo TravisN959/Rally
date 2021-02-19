@@ -13,8 +13,8 @@
         <br>
         <center>
             <a href="rally">
-                <button type="button" class="btn btn-success">
-                    <h1 style="text-align: center;">
+                <button type="button" class="btn btn-dark">
+                    <h1 style="text-align: center;" >
                         RALLY!
                     </h1>
                 </button>
@@ -22,16 +22,29 @@
             <br><br>
             {% for x in rallys %}
                 <img src="{{x.imageAddress}}" style="width: 200px;height: 200px;">
-                <h1><a href="{{x.link}}">{{x.name}}</a></h1>
-                <h3>Date: {{x.eventDate}}</h3>
-                <h4>Address: {{x.address["street"]}}, {{x.address["city"]}}, {{x.address["state"]}} {{x.address["zip"]}}</h4>
+                <h1 class="handWriteTitle"><a href="{{x.link}}">{{x.name}}</a></h1>
+                <h3 class="handWriteText">Date: {{x.eventDate}}</h3>
+                    <div class="container">
+                    <div class="row align-items-start">
+                        <div class="col-sm"></div>
+                        <div class="col-sm handWriteText" style=""><b>Description:</b>
+                            {{x.description}}</div>
+                        <div class="col-sm"></div>
+                    </div>
+                    </div>
+                <h4 class="handWriteText">Address: {{x.address["street"]}}, {{x.address["city"]}}, {{x.address["state"]}} {{x.address["zip"]}}</h4>
                 {% set val = rallyDist[x.idNum] %}
-                <h4>Driving Travel Time:  {{val}}</h4>
-                <button onclick="myFunction('{{x.idNum}}')">Directions</button>
+                <h4 class="handWriteText">Driving Travel Time:  {{val}}</h4>
+                <button onclick="myFunction('{{x.idNum}}')" class="btn btn-success">Directions</button>
                 {% set directval = rallyDirect[x.idNum] %}
                 <br>
                 <div style="display: none;" id={{x.idNum}}>
-                    {{directval|safe}}
+                    <div class="row align-items-start">
+                        <div class="col"></div>
+                        <div class="col handWriteTextSmall">{{directval|safe}}</div>
+                        <div class="col"></div>
+                    </div>
+                    
                 </div>
                 <script>
                     function myFunction(y) {
@@ -43,8 +56,8 @@
                                 }
                             }
                 </script>
-                <b>Description:</b>
-                {{x.description}}
+                
+                
                 <br>
             {% endfor %}
         </center>
