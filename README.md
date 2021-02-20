@@ -1,4 +1,4 @@
-# Rally.io
+# Rally
 
 ## About The Project
 
