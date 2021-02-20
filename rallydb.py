@@ -1,6 +1,8 @@
 import pymongo
 import mongoKEYS
-client = pymongo.MongoClient(mongoKEYS.getKEY())
+#client = pymongo.MongoClient(mongoKEYS.getKEY())
+from boto.s3.connection import S3Connection
+client = S3Connection(os.environ['MONGO_KEY'])
 database = client["Rally"]
 collection = database["Rallys"]
 
