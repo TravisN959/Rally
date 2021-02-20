@@ -174,7 +174,7 @@ def rally():
                     if tStr == topic:
                         distanceStr =  calc_distances.get_distance(accountInfo.getAddress(act["username"]), addressOfRally)
                         distanceFloat = float(distanceStr[:-2])
-                        if(distanceInt < 30):#only texts if within 30 miles
+                        if(distanceFloat < 30):#only texts if within 30 miles
                             msg = "Relevent Rally Added!\n" + "Event: " + name + "\nFor more info check RALLY!\n"
                             texting.send_message(msg, act["phone"])
                 
