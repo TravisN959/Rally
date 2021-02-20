@@ -21,8 +21,8 @@ Our website's easy-to-use interface allows users to do this by simply creating a
 - [Google Maps API](https://developers.google.com/maps)
 
 ## Contact
-Travis Nguyen - (travisln@uci.edu)
+Travis Nguyen - travisln@uci.edu
 
-Natashza Trejo - (trejonm@uci.edu)
+Natashza Trejo - trejonm@uci.edu
 
-Project Link: (https://github.com/TravisN959/Rally)
+Project Link: https://github.com/TravisN959/Rally
